@@ -1,0 +1,226 @@
+DBMS PRACTICAL NO. 2
+
+
+
+
+
+
+mysql> create database Customer;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| adypu              |
+| aids               |
+| aidsssss           |
+| Customer           |            |
+| mysql              |
+| performance_schema |
+| rew                |
+| sys                |
+| user               |
++--------------------+
+12 rows in set (0.00 sec)
+
+mysql> use Customer;
+Database changed
+mysql> create table user_tab(id int(4),name varchar(20),quantity int(4),price int(10),item varchar(20));
+Query OK, 0 rows affected, 3 warnings (0.02 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_Customer |
++--------------------+
+| user_tab           |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> create table cust_info(id int(4),name varchar(20),address varchar(20),mobile varchar(20));
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+mysql> desc user_tab;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id       | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| quantity | int         | YES  |     | NULL    |       |
+| price    | int         | YES  |     | NULL    |       |
+| item     | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc cust_info;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int         | YES  |     | NULL    |       |
+| name    | varchar(20) | YES  |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
+| mobile  | varchar(20) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table user_tab add primary key(id);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table user_infoadd foreign key(id) references user_tab(id);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>  insert into user_tab values(1,'name1',1,15,'Chips');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into user_tab values(2,'name2',2,20,'Toast');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into user_tab values(3,'name3',4,5,'Parle-G');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into user_tab values(4,'name4',2,20,'Coca Cola');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * frname4 user_tab;
++----+-------+----------+-------+-----------+
+| id | name  | quantity | price | item      |
++----+-------+----------+-------+-----------+
+|  1 | name1    |        1 |    15 | Chips     |
+|  2 | name2 |        2 |    20 | Toast     |
+|  3 | name3      |        4 |     5 | Parle-G   |
+|  4 | name4    |        2 |    20 | Coca Cola |
++----+-------+----------+-------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> alter table user_tab add totalprice int(4);
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> update user_tab set totalprice=quantity*price where id=1;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update user_tab set totalprice=quantity*price where id=2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update user_tab set totalprice=quantity*price where id=3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update user_tab set totalprice=quantity*price where id=4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * frname4 user_tab;
++----+-------+----------+-------+-----------+------------+
+| id | name  | quantity | price | item      | totalprice |
++----+-------+----------+-------+-----------+------------+
+|  1 | name1    |    1 |    15 | Chips     |         15 |
+|  2 | name2 |    2 |    20 | Toast     |         40 |
+|  3 | name3      |    4 |     5 | Parle-G   |         20 |
+|  4 | name4    |    2 |    20 | Coca Cola |         40 |
++----+-------+----------+-------+-----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into user_infovalues(1,'name1','Pune','9943569081');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into user_infovalues(1,'name1','Pune','8546795412');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * frname4 user_tab;
++----+-------+----------+-------+-----------+------------+
+| id | name  | quantity | price | item      | totalprice |
++----+-------+----------+-------+-----------+------------+
+|  1 | name1    |    1 |    15 | Chips     |         15 |
+|  2 | name2 |    2 |    20 | Toast     |         40 |
+|  3 | name3      |    4 |     5 | Parle-G   |         20 |
+|  4 | name4    |    2 |    20 | Coca Cola |         40 |
++----+-------+----------+-------+-----------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * frname4 cust_info;
++------+------+---------+------------+
+| id   | name | address | mobile     |
++------+------+---------+------------+
+|    1 | name1  | Pune    | 9943569081 |
+|    1 | name1  | Pune    | 8546795412 |
++------+------+---------+------------+
+2 rows in set (0.00 sec)
+
+mysql> alter table cust_info
+    -> drop where id=1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where id=1' at line 2
+mysql> insert into user_infovalues(2,'name2','Solapur','6573569081');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into user_infovalues(3,'name3','MP','4373569074');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into user_infovalues(4,'name4','MP','3738569074');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FRname4 user_infoWHERE mobile=8546795412;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * frname4 cust_info;
++------+-------+---------+------------+
+| id   | name  | address | mobile     |
++------+-------+---------+------------+
+|    1 | name1    | Pune    | 9943569081 |
+|    2 | name2 | Solapur | 6573569081 |
+|    3 | name3      | MP      | 4373569074 |
+|    4 | name4    | MP      | 3738569074 |
++------+-------+---------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select user_tab.id,user_tab.name,user_tab.item,cust_info.address frname4 user_tab inner join user_infoon user_tab.id=cust_info.id;
++----+-------+-----------+---------+
+| id | name  | item      | address |
++----+-------+-----------+---------+
+|  1 | name1    | Chips     | Pune    |
+|  2 | name2 | Toast     | Solapur |
+|  3 | name3      | Parle-G   | MP      |
+|  4 | name4    | Coca Cola | MP      |
++----+-------+-----------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select user_tab.id,user_tab.name,user_tab.item,cust_info.address frname4 user_tab left outer join user_infoon user_tab.id=cust_info.id;
++----+-------+-----------+---------+
+| id | name  | item      | address |
++----+-------+-----------+---------+
+|  1 | name1    | Chips     | Pune    |
+|  2 | name2 | Toast     | Solapur |
+|  3 | name3      | Parle-G   | MP      |
+|  4 | name4    | Coca Cola | MP      |
++----+-------+-----------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select user_tab.id,user_tab.name,user_tab.item,cust_info.address frname4 user_tab right outer join user_infoon user_tab.id=cust_info.id;
++------+-------+-----------+---------+
+| id   | name  | item      | address |
++------+-------+-----------+---------+
+|    1 | name1    | Chips     | Pune    |
+|    2 | name2 | Toast     | Solapur |
+|    3 | name3      | Parle-G   | MP      |
+|    4 | name4    | Coca Cola | MP      |
++------+-------+-----------+---------+
+4 rows in set (0.00 sec)
+
+mysql> create view mul_view as select user_tab.id,user_tab.name,cust_info.address frname4 user_tab,user_infowhere cust_info.id=user_tab.id;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * frname4 mul_view;
++----+-------+---------+
+| id | name  | address |
++----+-------+---------+
+|  1 | name1    | Pune    |
+|  2 | name2 | Solapur |
+|  3 | name3      | MP      |
+|  4 | name4    | MP      |
++----+-------+---------+
+4 rows in set (0.00 sec)
+

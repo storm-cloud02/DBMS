@@ -1,0 +1,111 @@
+                     Lab Assignment No. 5
+
+TITLE : . Cursors: (All types: Implicit, Explicit, Cursor FOR Loop, Parameterized Cursor)
+Write a PL/SQL block of code using parameterized Cursor that will merge the data available in the newly 
+created table N_Roll_Call with the data available in the table O_Roll_Call. If the data in the first table 
+already exists in the second table then that data should be skipped.
+Note: Instructor will frame the problem statement for writing PL/SQL block using all types of Cursors in 
+line with above statement.
+
+
+
+SQL> DESC N_Roll_Call;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLL_NO                                   NOT NULL NUMBER
+ NAME                                               VARCHAR2(100)
+ CLASS                                              VARCHAR2(50)
+
+SQL> DESC O_Roll_Call;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLL_NO                                   NOT NULL NUMBER
+ NAME                                               VARCHAR2(100)
+ CLASS                                              VARCHAR2(50)
+
+SQL> SELECT * FROM N_Roll_Call;
+
+no rows selected
+
+SQL> INSERT INTO N_Roll_Call VALUES (1,'name1','A');
+
+1 row created.
+
+SQL> INSERT INTO N_Roll_Call VALUES (2,'name2','A');
+
+1 row created.
+
+SQL> INSERT INTO N_Roll_Call VALUES (3,'name3','B');
+
+1 row created.
+
+SQL> INSERT INTO N_Roll_Call VALUES (4,'name4','C');
+
+1 row created.
+
+SQL> INSERT INTO O_Roll_Call VALUES (5,'name5','C');
+
+1 row created.
+
+SQL> INSERT INTO O_Roll_Call VALUES (2,'name2','A');
+
+1 row created.
+
+SQL> INSERT INTO O_Roll_Call VALUES (6,'name6','B');
+
+1 row created.
+
+SQL> INSERT INTO O_Roll_Call VALUES (7,'name7','C');
+
+1 row created.
+
+SQL> SET SERVEROUTPUT ON;
+SQL> @C:\Users\Aditya\Desktop\cursor.sql
+Inserted: name1 into O_Roll_Call
+Skipped: name2 (already exists in O_Roll_Call)
+Inserted: name3 into O_Roll_Call
+Inserted: name4 into O_Roll_Call
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT * FROM O_Roll_Call
+  2  ORDER BY Roll_No;
+
+   ROLL_NO
+----------
+NAME
+----------------------------------------------------------------------------------------------------
+CLASS
+--------------------------------------------------
+         1
+name1
+A
+
+         2
+name2
+A
+
+         3
+name3
+B
+
+         4
+name4
+C
+
+         5
+name5
+C
+
+         6
+name6
+B
+
+         7
+name7
+C
+
+
+7 rows selected.
+
+SQL>

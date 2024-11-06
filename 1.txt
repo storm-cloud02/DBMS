@@ -1,0 +1,416 @@
+Assignment  1 Output dbms
+
+// Creating Database 
+mysql> create database shop;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> use shop;
+Database changed
+
+// Creating Table 
+mysql> create table shop(
+    -> product_id int,
+    -> product_name varchar(255),
+    -> product_description varchar(255),
+    -> product_cs int);
+Query OK, 0 rows affected (0.56 sec)
+
+// Adding Column
+mysql> alter table shop
+    -> add rating int;
+Query OK, 0 rows affected (0.23 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> desc shop;
++---------------------+--------------+------+-----+---------+-------+
+| Field               | Type         | Null | Key | Default | Extra |
++---------------------+--------------+------+-----+---------+-------+
+| product_id          | int          | YES  |     | NULL    |       |
+| product_name        | varchar(255) | YES  |     | NULL    |       |
+| product_description | varchar(255) | YES  |     | NULL    |       |
+| product_cs          | int          | YES  |     | NULL    |       |
+| rating              | int          | YES  |     | NULL    |       |
++---------------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+// Modifying data type 
+mysql> alter table shop
+    -> modify rating varchar(255);
+Query OK, 0 rows affected (0.97 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> desc shop;
++---------------------+--------------+------+-----+---------+-------+
+| Field               | Type         | Null | Key | Default | Extra |
++---------------------+--------------+------+-----+---------+-------+
+| product_id          | int          | YES  |     | NULL    |       |
+| product_name        | varchar(255) | YES  |     | NULL    |       |
+| product_description | varchar(255) | YES  |     | NULL    |       |
+| product_cs          | int          | YES  |     | NULL    |       |
+| rating              | varchar(255) | YES  |     | NULL    |       |
++---------------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+// Modifying data type
+mysql> alter table shop
+    -> modify rating int;
+Query OK, 0 rows affected (1.53 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc shop;
++---------------------+--------------+------+-----+---------+-------+
+| Field               | Type         | Null | Key | Default | Extra |
++---------------------+--------------+------+-----+---------+-------+
+| product_id          | int          | YES  |     | NULL    |       |
+| product_name        | varchar(255) | YES  |     | NULL    |       |
+| product_description | varchar(255) | YES  |     | NULL    |       |
+| product_cs          | int          | YES  |     | NULL    |       |
+| rating              | int          | YES  |     | NULL    |       |
++---------------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+// Droping a column
+mysql> alter table shop
+    -> drop rating;
+Query OK, 0 rows affected (0.24 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc shop;
++---------------------+--------------+------+-----+---------+-------+
+| Field               | Type         | Null | Key | Default | Extra |
++---------------------+--------------+------+-----+---------+-------+
+| product_id          | int          | YES  |     | NULL    |       |
+| product_name        | varchar(255) | YES  |     | NULL    |       |
+| product_description | varchar(255) | YES  |     | NULL    |       |
+| product_cs          | int          | YES  |     | NULL    |       |
++---------------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+// Droping Table 
+mysql> drop table shop;
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| shop              |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+// Creating Table 
+mysql> create table shop(
+    -> pro_id int,
+    -> pro_name varchar(255),
+    -> pro_cs int,
+    -> pro_desc varchar(255),
+    -> rating int) ;
+Query OK, 0 rows affected (0.48 sec)
+
+mysql> desc shop;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| pro_id   | int          | YES  |     | NULL    |       |
+| pro_name | varchar(255) | YES  |     | NULL    |       |
+| pro_cs   | int          | YES  |     | NULL    |       |
+| pro_desc | varchar(255) | YES  |     | NULL    |       |
+| rating   | int          | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+// Inserting Values in table 
+mysql> insert into shop values(1,'books',10,'classmate',4);
+Query OK, 1 row affected (0.25 sec)
+mysql> select * from shop;
++--------+----------+--------+-----------+--------+
+| pro_id | pro_name | pro_cs | pro_desc  | rating |
++--------+----------+--------+-----------+--------+
+|      1 | books |     10 | classmate |      4 |
++--------+----------+--------+-----------+--------+
+1 row in set (0.00 sec)
+
+// Inserting Values in table 
+mysql> insert into shop values(2,'Sharpner',5,'Apsara',5),
+    -> (3,'Pencil',20,'Natraj',4),
+    -> (4,'Basket',15,'SkyBaskets',5),
+    ->  (5,'Raincoat',7,'Zeel',3);
+Query OK, 4 rows affected (0.09 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+//Display Table 
+mysql> select * from shop;
++--------+----------+--------+-----------+--------+
+| pro_id | pro_name | pro_cs | pro_desc  | rating |
++--------+----------+--------+-----------+--------+
+|      1 | books |     10 | classmate |      4 |
+|      2 | Sharpner   |      5 | Apsara    |      5 |
+|      3 | Pencil      |     20 | Natraj    |      4 |
+|      4 | Basket      |     15 | SkyBaskets   |      5 |
+|      5 | Raincoat |      7 | Zeel      |      3 |
++--------+----------+--------+-----------+--------+
+5 rows in set (0.00 sec)
+// Where Condition
+mysql> select * from shop where pro_name = 'Pencil';
++--------+----------+--------+----------+--------+
+| pro_id | pro_name | pro_cs | pro_desc | rating |
++--------+----------+--------+----------+--------+
+|      3 | Pencil      |     20 | Natraj   |      4 |
++--------+----------+--------+----------+--------+
+1 row in set (0.00 sec)
+
+mysql> select pro_desc from shop where pro_name = 'Pencil';
++----------+
+| pro_desc |
++----------+
+| Natraj   |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select pro_desc from shop ;
++-----------+
+| pro_desc  |
++-----------+
+| classmate |
+| Apsara    |
+| Natraj    |
+| SkyBaskets   |
+| Zeel      |
++-----------+
+5 rows in set (0.00 sec)
+
+mysql> alter table shop
+    -> add cost int;
+Query OK, 0 rows affected (0.34 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc shop;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| pro_id   | int          | YES  |     | NULL    |       |
+| pro_name | varchar(255) | YES  |     | NULL    |       |
+| pro_cs   | int          | YES  |     | NULL    |       |
+| pro_desc | varchar(255) | YES  |     | NULL    |       |
+| rating   | int          | YES  |     | NULL    |       |
+| cost     | int          | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from shop;
++--------+----------+--------+-----------+--------+------+
+| pro_id | pro_name | pro_cs | pro_desc  | rating | cost |
++--------+----------+--------+-----------+--------+------+
+|      1 | books |     10 | classmate |      4 | NULL |
+|      2 | Sharpner   |      5 | Apsara    |      5 | NULL |
+|      3 | Pencil      |     20 | Natraj    |      4 | NULL |
+|      4 | Basket      |     15 | SkyBaskets   |      5 | NULL |
+|      5 | Raincoat |      7 | Zeel      |      3 | NULL |
++--------+----------+--------+-----------+--------+------+
+5 rows in set (0.00 sec)
+\\ Updating  table
+mysql> update shop
+    -> set cost = 50 where pro_id=1;
+Query OK, 1 row affected (0.18 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from shop;
++--------+----------+--------+-----------+--------+------+
+| pro_id | pro_name | pro_cs | pro_desc  | rating | cost |
++--------+----------+--------+-----------+--------+------+
+|      1 | books |     10 | classmate |      4 |   50 |
+|      2 | Sharpner   |      5 | Apsara    |      5 | NULL |
+|      3 | Pencil      |     20 | Natraj    |      4 | NULL |
+|      4 | Basket      |     15 | SkyBaskets   |      5 | NULL |
+|      5 | Raincoat |      7 | Zeel      |      3 | NULL |
++--------+----------+--------+-----------+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> update shop
+    -> set cost = 5 where pro_id=2;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update shop
+    -> set cost = 15 where pro_id=3  ;
+
+mysql> update shop
+    -> set cost = 15 where pro_id=3;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update shop
+    -> set cost = 500 where pro_id=4;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update shop
+    -> set cost = 1000 where pro_id=5;
+Query OK, 1 row affected (0.20 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from shop;
++--------+----------+--------+-----------+--------+------+
+| pro_id | pro_name | pro_cs | pro_desc  | rating | cost |
++--------+----------+--------+-----------+--------+------+
+|      1 | books |     10 | classmate |      4 |   50 |
+|      2 | Sharpner   |      5 | Apsara    |      5 |    5 |
+|      3 | Pencil      |     20 | Natraj    |      4 |   15 |
+|      4 | Basket      |     15 | SkyBaskets   |      5 |  500 |
+|      5 | Raincoat |      7 | Zeel      |      3 | 1000 |
++--------+----------+--------+-----------+--------+------+
+5 rows in set (0.00 sec)
+
+// Adding Table
+mysql> alter table shop
+    -> add margin int;
+Query OK, 0 rows affected (0.30 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from shop;
++--------+----------+--------+-----------+--------+------+--------+
+| pro_id | pro_name | pro_cs | pro_desc  | rating | cost | margin |
++--------+----------+--------+-----------+--------+------+--------+
+|      1 | books |     10 | classmate |      4 |   50 |   NULL |
+|      2 | Sharpner   |      5 | Apsara    |      5 |    5 |   NULL |
+|      3 | Pencil      |     20 | Natraj    |      4 |   15 |   NULL |
+|      4 | Basket      |     15 | SkyBaskets   |      5 |  500 |   NULL |
+|      5 | Raincoat |      7 | Zeel      |      3 | 1000 |   NULL |
++--------+----------+--------+-----------+--------+------+--------+
+5 rows in set (0.00 sec)
+mysql> update shop
+    -> set 1=10 , 2=2 ,3=5 , 4=200, 5=200 where condition = margin;
+
+// Deleting Column 
+mysql> alter table shop
+    -> drop margin;
+Query OK, 0 rows affected (0.36 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from shop;
++--------+----------+--------+-----------+--------+------+
+| pro_id | pro_name | pro_cs | pro_desc  | rating | cost |
++--------+----------+--------+-----------+--------+------+
+|      1 | books |     10 | classmate |      4 |   50 |
+|      2 | Sharpner   |      5 | Apsara    |      5 |    5 |
+|      3 | Pencil      |     20 | Natraj    |      4 |   15 |
+|      4 | Basket      |     15 | SkyBaskets   |      5 |  500 |
+|      5 | Raincoat |      7 | Zeel      |      3 | 1000 |
++--------+----------+--------+-----------+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from shop where pro_id = 1;
++--------+----------+--------+-----------+--------+------+
+| pro_id | pro_name | pro_cs | pro_desc  | rating | cost |
++--------+----------+--------+-----------+--------+------+
+|      1 | books |     10 | classmate |      4 |   50 |
++--------+----------+--------+-----------+--------+------+
+1 row in set (0.00 sec)
+
+mysql> select pro_desc, cost from shop;
++-----------+------+
+| pro_desc  | cost |
++-----------+------+
+| classmate |   50 |
+| Apsara    |    5 |
+| Natraj    |   15 |
+| SkyBaskets   |  500 |
+| Zeel      | 1000 |
++-----------+------+
+5 rows in set (0.00 sec)
+mysql> select * from shop where cost < 50;
++--------+----------+--------+----------+--------+------+
+| pro_id | pro_name | pro_cs | pro_desc | rating | cost |
++--------+----------+--------+----------+--------+------+
+|      2 | Sharpner   |      5 | Apsara   |      5 |    5 |
+|      3 | Pencil      |     20 | Natraj   |      4 |   15 |
++--------+----------+--------+----------+--------+------+
+2 rows in set (0.00 sec)
+mysql> insert into shop values
+    -> (6,'books',6,'classmate',4,50),
+    -> (7,'Basket',12,'SkyBaskets',5,500),
+    -> (8,'Raincoat',4,'Zeel',3,1000);
+Query OK, 3 rows affected (0.09 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+mysql> select * from shop ;
++--------+----------+--------+-----------+--------+------+
+| pro_id | pro_name | pro_cs | pro_desc  | rating | cost |
++--------+----------+--------+-----------+--------+------+
+|      1 | books |     10 | classmate |      4 |   50 |
+|      2 | Sharpner   |      5 | Apsara    |      5 |    5 |
+|      3 | Pencil      |     20 | Natraj    |      4 |   15 |
+|      4 | Basket      |     15 | SkyBaskets   |      5 |  500 |
+|      5 | Raincoat |      7 | Zeel      |      3 | 1000 |
+|      6 | books |      6 | classmate |      4 |   50 |
+|      7 | Basket      |     12 | SkyBaskets   |      5 |  500 |
+|      8 | Raincoat |      4 | Zeel      |      3 | 1000 |
++--------+----------+--------+-----------+--------+------+
+8 rows in set (0.00 sec)
+//Distinct Command
+mysql> SELECT DISTINCT pro_name from shop;
++----------+
+| pro_name |
++----------+
+| books |
+| Sharpner   |
+| Pencil      |
+| Basket      |
+| Raincoat |
++----------+
+5 rows in set (0.00 sec)
+// Creating View 
+mysql> create or replace view shop_view1 as select * from shop;
+Query OK, 0 rows affected (0.12 sec)
+mysql> desc shop_view1;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| pro_id   | int          | YES  |     | NULL    |       |
+| pro_name | varchar(255) | YES  |     | NULL    |       |
+| pro_cs   | int          | YES  |     | NULL    |       |
+| pro_desc | varchar(255) | YES  |     | NULL    |       |
+| rating   | int          | YES  |     | NULL    |       |
+| cost     | int          | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+// Using where condition  in view
+mysql> create or replace view shop_view1 as select pro_id , cost from shop;
+Query OK, 0 rows affected (0.20 sec)
+mysql> select *  from shop_view1;
++--------+------+
+| pro_id | cost |
++--------+------+
+|      1 |   50 |
+|      2 |    5 |
+|      3 |   15 |
+|      4 |  500 |
+|      5 | 1000 |
+|      6 |   50 |
+|      7 |  500 |
+|      8 | 1000 |
++--------+------+
+8 rows in set (0.00 sec)
+mysql> create or replace view shop_view1 as select * from shop where cost > 50;
+Query OK, 0 rows affected (0.28 sec)
+mysql> select *  from shop_view1;
++--------+----------+--------+----------+--------+------+
+| pro_id | pro_name | pro_cs | pro_desc | rating | cost |
++--------+----------+--------+----------+--------+------+
+|      4 | Basket      |     15 | SkyBaskets  |      5 |  500 |
+|      5 | Raincoat |      7 | Zeel     |      3 | 1000 |
+|      7 | Basket      |     12 | SkyBaskets  |      5 |  500 |
+|      8 | Raincoat |      4 | Zeel     |      3 | 1000 |
++--------+----------+--------+----------+--------+------+
+4 rows in set (0.00 sec)
+mysql> create or replace view shop_view1 as select pro_id, cost from shop where cost > 50;
+Query OK, 0 rows affected (0.20 sec)
+mysql> select *  from shop_view1;
++--------+------+
+| pro_id | cost |
++--------+------+
+|      4 |  500 |
+|      5 | 1000 |
+|      7 |  500 |
+|      8 | 1000 |
++--------+------+
+4 rows in set (0.00 sec)
+
+

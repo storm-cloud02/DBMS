@@ -1,0 +1,289 @@
+                             Lab Assignment No. 3
+
+TITLE : MongoDB Queries:
+Design and Develop MongoDB Queries using CRUD operations. (Use CRUD operations, SAVE method, 
+logical operators etc.).
+
+
+test> use friendsDB;
+switched to db friendsDB
+friendsDB> db.createCollection("friends");
+{ ok: 1 }
+friendsDB> db.friends.insertMany([
+...    { name: "name1", age: 22, city: "Pune" },
+...    { name: "name2", age: 21, city: "Mumbai" },
+...    { name: "name3", age: 22, city: "Pune" },
+...    { name: "name4", age: 21, city: "Nagpur" },
+...    { name: "name5", age: 23, city: "Mumbai" },
+...    { name: "name6", age: 22, city: "Pune" },
+...    {name: "name7", age: 22, city: "Pune" }
+... ]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('670aadf643cd773e4e86b01d'),
+    '1': ObjectId('670aadf643cd773e4e86b01e'),
+    '2': ObjectId('670aadf643cd773e4e86b01f'),
+    '3': ObjectId('670aadf643cd773e4e86b020'),
+    '4': ObjectId('670aadf643cd773e4e86b021'),
+    '5': ObjectId('670aadf643cd773e4e86b022'),
+    '6': ObjectId('670aadf643cd773e4e86b023')
+  }
+}
+
+
+
+//CRUD Operations 
+
+
+//1) Read
+
+friendsDB> db.friends.find();
+[
+  {
+    _id: ObjectId('670aadf643cd773e4e86b01d'),
+    name: 'name1',
+    age: 22,
+    city: 'Pune'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b01e'),
+    name: 'name2',
+    age: 21,
+    city: 'Mumbai'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b01f'),
+    name: 'name3',
+    age: 22,
+    city: 'Pune'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b020'),
+    name: 'name4',
+    age: 21,
+    city: 'Nagpur'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b021'),
+    name: 'name5',
+    age: 23,
+    city: 'Mumbai'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b022'),
+    name: 'name6',
+    age: 22,
+    city: 'Pune'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b023'),
+    name: 'name7',
+    age: 22,
+    city: 'Pune'
+  }
+]
+friendsDB> db.friends.find({ city: "Pune" });
+[
+  {
+    _id: ObjectId('670aadf643cd773e4e86b01d'),
+    name: 'name1',
+    age: 22,
+    city: 'Pune'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b01f'),
+    name: 'name3',
+    age: 22,
+    city: 'Pune'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b022'),
+    name: 'name6',
+    age: 22,
+    city: 'Pune'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b023'),
+    name: 'name7',
+    age: 22,
+    city: 'Pune'
+  }
+]
+
+
+//2) Update
+
+
+friendsDB> db.friends.updateOne(
+...    { name: "name2" },
+...    { $set: { age: 22 } }
+... );
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+
+//3) Delete
+
+
+friendsDB> db.friends.deleteOne({ name: "name5" });
+{ acknowledged: true, deletedCount: 1 }
+friendsDB> db.friends.save({
+... _id: ObjectId("670aadf643cd773e4e86b01d"),
+... name: "name1",
+... age: 22,
+... city: 'Pune'
+... });
+
+
+
+
+// SAVE METHOD (I have used updateOne() instead of save() because save() has been deprecated in latest versions of Mongodb)
+
+studentsDB> db.friends.updateOne(
+...   { _id: ObjectId("670aadf643cd773e4e86b020") },  // Ensure this is a valid ObjectId
+...   {
+...     $set: {
+...       name: "name4",
+...       age: 22,
+...       city: "Nagpur"
+...     }
+...   },
+...   { upsert: true }  // Insert the document if it doesn't exist
+... );
+{
+  acknowledged: true,
+  insertedId: ObjectId('670aadf643cd773e4e86b020'),
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 1
+}
+
+
+
+//LOGICAL OPERATORS
+
+// 1) $or operator
+
+
+friendsDB> db.friends.find({
+...    $or: [
+...       { city: "Pune" },
+...       { city: "Mumbai" }
+...    ]
+... });
+[
+  {
+    _id: ObjectId('670aadf643cd773e4e86b01d'),
+    name: 'name1',
+    age: 22,
+    city: 'Pune'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b01e'),
+    name: 'name2',
+    age: 22,
+    city: 'Mumbai'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b01f'),
+    name: 'name3',
+    age: 22,
+    city: 'Pune'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b022'),
+    name: 'name6',
+    age: 22,
+    city: 'Pune'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b023'),
+    name: 'name7',
+    age: 22,
+    city: 'Pune'
+  }
+]
+
+
+//2) $and operator
+
+
+friendsDB> db.friends.find({
+...    $and: [
+...       { city: "Pune" },
+...       { age: { $gt: 22 } }
+...    ]
+... });
+
+
+
+// 3) $not Operator
+
+
+
+friendsDB> db.friends.find({ city: { $not: { $eq: "Pune" } } });
+[
+  {
+    _id: ObjectId('670aadf643cd773e4e86b01e'),
+    name: 'name2',
+    age: 22,
+    city: 'Mumbai'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b020'),
+    name: 'name4',
+    age: 21,
+    city: 'Nagpur'
+  }
+]
+
+
+// Check the Final Data
+
+
+friendsDB> db.friends.find();
+[
+  {
+    _id: ObjectId('670aadf643cd773e4e86b01d'),
+    name: 'name1',
+    age: 22,
+    city: 'Pune'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b01e'),
+    name: 'name2',
+    age: 22,
+    city: 'Mumbai'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b01f'),
+    name: 'name3',
+    age: 22,
+    city: 'Pune'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b020'),
+    name: 'name4',
+    age: 21,
+    city: 'Nagpur'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b022'),
+    name: 'name6',
+    age: 22,
+    city: 'Pune'
+  },
+  {
+    _id: ObjectId('670aadf643cd773e4e86b023'),
+    name: 'name7',
+    age: 22,
+    city: 'Pune'
+  }
+]
+friendsDB>

@@ -1,0 +1,166 @@
+                        Lab Assignment No. 4
+
+
+TITLE : Unnamed PL/SQLcode block: Use of Control structure and Exception handling is mandatory.
+Suggested Problem statement:
+Consider Tables:
+1. Borrower (Roll_no, Name, Date_of_Issue, Name_of_Book, Status)
+2. Fine (Roll_no, Date, Amt)
+ Accept Roll_no and Name_of_Book from user.
+ Check the number of days (from Date_of_Issue).
+ If days are between 15 to 30 then fine amount will be Rs 5per day.
+ If no. of days>30, per day fine will be Rs 50 per day and for days less than 30, Rs. 5 per day.
+ After submitting the book, status will change from I to R.
+ If condition of fine is true, then details will be stored into fine table.
+ Also handles the exception by named exception handler or user define exception handler
+
+
+
+
+
+SQL> DESC Borrower;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLL_NO                                            NUMBER(10)
+ NAME                                               VARCHAR2(100)
+ DATE_OF_ISSUE                                      DATE
+ NAME_OF_BOOK                                       VARCHAR2(100)
+ STATUS                                             CHAR(1)
+
+SQL> DESC Fine;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ROLL_NO                                            NUMBER(10)
+ FINEDATE                                           DATE
+ AMT                                                NUMBER(10,2)
+
+SQL> SET PAGESIZE 50
+SQL> SET LINESIZE 100
+SQL> SELECT * FROM BORROWER
+  2  ORDER BY Roll_no;
+
+   ROLL_NO
+----------
+NAME
+----------------------------------------------------------------------------------------------------
+DATE_OF_I
+---------
+NAME_OF_BOOK
+----------------------------------------------------------------------------------------------------
+S
+-
+         1
+name1
+14-AUG-24
+ML
+I
+
+         2
+name2
+20-AUG-24
+OOP
+I
+
+         3
+name3
+01-JUL-24
+DBMS
+I
+
+         4
+name4
+01-AUG-24
+CG
+I
+
+         5
+name5
+20-JUL-24
+OOP
+R
+
+         6
+name6
+20-JUL-24
+EM
+I
+
+         7
+name7
+13-JUL-24
+
+   ROLL_NO
+----------
+NAME
+----------------------------------------------------------------------------------------------------
+DATE_OF_I
+---------
+NAME_OF_BOOK
+----------------------------------------------------------------------------------------------------
+S
+-
+IOT
+I
+
+
+7 rows selected.
+
+SQL> SET SERVEROUTPUT ON;
+SQL> @C:\Users\Aditya\Desktop\fine.sql
+
+Procedure created.
+
+SQL>  EXEC CalculateFine(5, 'OOP');
+Book already returned.
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT * FROM Fine;
+
+no rows selected
+
+SQL>  EXEC CalculateFine(3, 'DBMS');
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT * FROM Fine;
+
+   ROLL_NO FINEDATE         AMT
+---------- --------- ----------
+         3 12-OCT-24       3725
+
+SQL>  EXEC CalculateFine(1, 'ML')
+
+PL/SQL procedure successfully completed.
+
+SQL>  EXEC CalculateFine(2, 'OOP');
+
+PL/SQL procedure successfully completed.
+
+SQL>  EXEC CalculateFine(4, 'CG');
+
+PL/SQL procedure successfully completed.
+
+SQL>  EXEC CalculateFine(6, 'EM');
+
+PL/SQL procedure successfully completed.
+
+SQL>  EXEC CalculateFine(7, 'IOT');
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT * FROM Fine
+  2  ORDER BY roll_no;
+
+   ROLL_NO FINEDATE         AMT
+---------- --------- ----------
+         1 12-OCT-24       1525
+         2 12-OCT-24       1225
+         3 12-OCT-24       3725
+         4 12-OCT-24       2175
+         6 12-OCT-24       2775
+         7 12-OCT-24       3125
+
+6 rows selected.
+
+SQL>
